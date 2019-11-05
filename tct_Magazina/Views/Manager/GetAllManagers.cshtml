@@ -1,0 +1,64 @@
+﻿@using tct_Magazina.Models;
+@model List<Manager>
+@{
+    ViewData["Title"] = "GetAllManagers";
+}
+
+<h2>All Managers</h2>
+
+
+<button type="button" class="btn btn-default">@Html.ActionLink("Create","CreateManager","Manager")</button>
+
+@if (Model.Any())
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr class="info">
+                <td> Name</td>
+                <td> Phone Number</td>
+                <td> E-Mail</td>
+                <td> Date of Birth</td>
+            </tr>
+
+
+        </thead>
+
+
+        <tbody>
+            @foreach (Manager manager in Model)
+            {
+            <tr>
+
+                <td>@manager.Name</td>
+                <td>@manager.PhoneNumber</td>
+                <td>
+                    @manager.email
+                </td>
+
+                <td>
+                    @manager.DateOfBirth.ToString("dd/MM/yyyy")
+                </td>
+                <td type="button" class="btn btn-default success ">@Html.ActionLink("Edit", "EditManager", "Manager", new { @id = manager.ManagerId })</td>
+
+                <td type="button" class="btn btn-default danger ">@Html.ActionLink("Delete", "Delete", "Manager", new { @id = manager.ManagerId })</td>
+
+            </tr>
+
+            }
+
+
+        </tbody>
+
+
+
+
+
+    </table>
+
+
+}
+
+else
+{ <h1 class="text-center text-danger">There is no Managers</h1>
+
+}

@@ -1,0 +1,54 @@
+﻿@model tct_Magazina.ViewModels.ManagerViewModel
+@{
+    ViewData["Title"] = "Create Manager";
+}
+
+
+
+
+    <h2>Create Manager</h2>
+
+
+    @using (Html.BeginForm("CreateManager", "Manager", FormMethod.Post))
+    {
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.PhoneNumber)
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "+35569XXXXXXXX" })
+            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.email)
+            @Html.TextBoxFor(m => m.email, new { @class = "form-control", placeholder = "john@tct.al" })
+            @Html.ValidationMessageFor(m => m.email, "", new { @class = "text-danger" })
+
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.DateOfBirth, htmlAttributes: new {@class="control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.DateOfBirth, new { @type ="date", @class = "form-control", placeholder = "DD/MM/YYYY" })
+                @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
+
+        <button type="submit" class="btn-primary"> Save Manager</button>
+    
+    }

@@ -1,0 +1,56 @@
+﻿@using tct_Magazina.Models;
+@model List<Warehouse>
+@{
+    ViewData["Title"] = "GetAllWarehouses";
+}
+
+<h2>All Warehouses</h2>
+
+<button type="button" class="btn btn-default">@Html.ActionLink("Create","CreateWarehouse","Warehouse")</button>
+
+@if (Model.Any())
+    {
+    <table class="table table-responsive">
+        <thead>
+            <tr class="info">
+                <td> Name</td>
+                <td> Area</td>
+                <td> Location</td>
+                <td> Number of Workers</td>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @foreach (Warehouse warehouse in Model)
+            {
+            <tr>
+                <td>@warehouse.Name</td>
+
+                <td>@warehouse.Area</td>
+
+                <td>@warehouse.Location</td>
+                <td>@warehouse.NoOfWorkers</td>
+
+                <td type="button" class="btn btn-default danger"> @Html.ActionLink("Delete", "Delete", "Warehouse", new { @id = warehouse.WarehouseId })</td>
+
+            </tr>
+
+
+            }
+        </tbody>
+
+
+    </table>
+
+
+    }
+
+
+    else
+    {
+    <h1 class="text-center text-danger"> There are no  warehouses</h1>
+    }
+
+

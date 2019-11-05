@@ -1,0 +1,61 @@
+﻿@model tct_Magazina.Models.Manager
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure that yu want to delete this Manager?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(m => m.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.PhoneNumber)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(m => m.email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.email)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(m => m.DateOfBirth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.DateOfBirth)
+        </dd>
+    </dl>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions">
+            <input type="submit" value="Delete" class="btn btn-default" />
+
+            | 
+            @Html.ActionLink("Back to List","GetAllManagers")
+
+        </div>
+
+    }
+
+
+
+
+
+</div>

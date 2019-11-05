@@ -1,0 +1,54 @@
+﻿@model tct_Magazina.Models.Warehouse
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+
+<h3>Are you sure that you want to delete this warehouse?</h3>
+
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(m => m.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.Name)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(m => m.Location)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.NoOfWorkers)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.NoOfWorkers)
+        </dd>
+
+    </dl>
+
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions">
+            <input type="submit" value="Delete" class="btn btn-default" />
+
+            |
+            @Html.ActionLink("Back to List", "GetAllWarehouses")
+
+        </div>
+
+    }
+
+
+</div>
