@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "EditConfirm";
+}
+
+<h2>Changes were saves successfully</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-action">
+
+        @Html.ActionLink("Back to list", "GetAllWarehouses")
+
+    </div>
+
+
+}
+

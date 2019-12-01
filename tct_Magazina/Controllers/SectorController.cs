@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using tct_Magazina.Interfaces;
 using tct_Magazina.Models;
@@ -9,16 +10,19 @@ using tct_Magazina.ViewModels;
 
 namespace tct_Magazina.Controllers
 {
+    [Authorize]
     public class SectorController : Controller
     {
 
         //inject sector repository
+        public readonly IManagerRepository _managerRepository;
         public readonly ISectorRepository _sectorRepository;
         public readonly AppDbContext _appDbContext;
         //constructor
-        public SectorController(ISectorRepository sectorRepository, AppDbContext appDbContext)
+        public SectorController(ISectorRepository sectorRepository, AppDbContext appDbContext, IManagerRepository managerRepository)
         {
             _sectorRepository = sectorRepository;
+            _managerRepository = managerRepository;
             _appDbContext = appDbContext;
         }
 
@@ -32,6 +36,19 @@ namespace tct_Magazina.Controllers
         }
 
 
+
+        public ActionResult CreateSector()
+        {
+            SectorViewModel sectorViewModel = new SectorViewModel()
+            {
+                Managers = _managerRepository.allManagers()
+            };
+
+            return View(sectorViewModel);
+        }
+
+
+        [HttpPost]
         public ActionResult CreateSector(SectorViewModel sectorViewModel)
         {
             if (!ModelState.IsValid)
@@ -46,7 +63,7 @@ namespace tct_Magazina.Controllers
             _sectorRepository.CreateSector(sectorViewModel);
 
 
-            return View();
+            return View(new SectorViewModel() { Managers = _managerRepository.allManagers() });
         }
 
 
@@ -102,7 +119,7 @@ namespace tct_Magazina.Controllers
         public ActionResult EditSector (int id)
         {
 
-            Sector mysector = GetSectorById(id);
+            Sector mysector = _sectorRepository.GetSectorById(id);
 
             return View(mysector);
         }
@@ -111,9 +128,7 @@ namespace tct_Magazina.Controllers
 
         public ActionResult EditConfirm(Sector newsector)
         {
-            Sector oldsector = GetSectorById(newsector.SectorId);
-            oldsector.Name = newsector.Name;
-            oldsector.Description = newsector.Description;
+            _sectorRepository.UpdateSector(newsector);
 
             _appDbContext.SaveChanges();
 
@@ -123,6 +138,24 @@ namespace tct_Magazina.Controllers
 
         }
 
+
+
+        public ViewResult Search(string searchString)
+        {
+            string _searchString = searchString;
+            IEnumerable<Sector> sectors;
+
+            if (string.IsNullOrEmpty(_searchString))
+            {
+                sectors = _sectorRepository.Sectors.OrderBy(p => p.SectorId);
+            }
+            else
+            {
+                sectors = _sectorRepository.Sectors.Where(p => p.Name.ToLower().Contains(_searchString.ToLower()));
+            }
+
+            return View("~/Views/Sector/List.cshtml", new SectorListViewModel { Sectors = sectors });
+        }
 
     }
 }

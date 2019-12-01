@@ -17,7 +17,7 @@ namespace tct_Magazina.Models
 
         public int Area { get; set; }
 
-        public string Location{ get; set; }
+        public WarehouseLocation Location{ get; set; }
 
 
         [Display(Name = "Number of Workers")]
@@ -25,9 +25,12 @@ namespace tct_Magazina.Models
 
         public DateTime DateTimeCreated { get; set; }
 
+        [Display(Name = "Last Modified on:")]
+        public DateTime DateTimeModified { get; set; }
 
+        public virtual Sector Sector { get; set; }
+        public int SectorId { get; set; }
 
-      
 
     }
 }

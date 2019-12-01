@@ -17,6 +17,7 @@
                 <td> Area</td>
                 <td> Location</td>
                 <td> Number of Workers</td>
+                <td> Last Modified:</td>
 
             </tr>
 
@@ -32,6 +33,8 @@
 
                 <td>@warehouse.Location</td>
                 <td>@warehouse.NoOfWorkers</td>
+                <td>@warehouse.DateTimeModified</td>
+                <td type="button" class="btn btn-default success"> @Html.ActionLink("Edit", "EditWarehouse", "Warehouse", new { @id = warehouse.WarehouseId })</td>
 
                 <td type="button" class="btn btn-default danger"> @Html.ActionLink("Delete", "Delete", "Warehouse", new { @id = warehouse.WarehouseId })</td>
 

@@ -15,5 +15,8 @@ namespace tct_Magazina.Interfaces
         bool Exists(int sectorId);
         Sector GetSectorById(int sectorId);
         void Delete(int sectorId);
+        void UpdateSector(Sector newsector);
+        IEnumerable<Sector> Sectors { get; }
+
     }
 }

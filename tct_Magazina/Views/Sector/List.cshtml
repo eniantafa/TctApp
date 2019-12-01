@@ -1,0 +1,20 @@
+﻿@model tct_Magazina.ViewModels.SectorListViewModel
+<h2> Search Result:</h2>
+
+    <table class="table table-responsive">
+        
+            <tr class="info">
+                <td>Name</td>
+                <td>Description</td>
+                <td>.             Last Modified On:</td>
+            </tr>
+
+
+        </table>
+        <div class="row marginTop">
+            @foreach (var sector in Model.Sectors)
+            {
+                @Html.Partial("SectorSummary", sector)
+            }
+        </div>
+

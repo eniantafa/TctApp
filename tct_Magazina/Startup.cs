@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +29,14 @@ namespace tct_Magazina
 
 
             services.AddDbContext<AppDbContext>();
+
+
+            //konfigurimi i identity user
+            //Authentication, Identity config
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
             services.AddTransient<IManagerRepository, ManagerRepository>();
             services.AddTransient<ISectorRepository, SectorRepository>();
             services.AddTransient<IWarehouseRepository, WarehouseRepository>();
@@ -55,7 +64,14 @@ namespace tct_Magazina
             }
 
             app.UseStaticFiles();
-           // app.UseCookiePolicy();
+            // app.UseCookiePolicy();
+
+
+
+            //authentication
+            app.UseAuthentication();
+
+
 
             app.UseMvc(routes =>
             {

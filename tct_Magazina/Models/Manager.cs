@@ -25,13 +25,18 @@ namespace tct_Magazina.Models
 
         public string PhoneNumber { get; set; }
 
-      //  public List<Sector> Sectors { get; set; }
-
+     
 
         public DateTime DateTimeCreated { get; set; }
 
+        [Display(Name = "Last Modified on:")]
+        public DateTime DateTimeModified { get; set; }
+
         public string DefaultValue { get; set; }
 
+
+
+        public List<Sector> Sectors { get; set; }
 
 
     }

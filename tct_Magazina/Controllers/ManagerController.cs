@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using tct_Magazina.Interfaces;
 using tct_Magazina.Models;
@@ -10,17 +11,18 @@ using tct_Magazina.ViewModels;
 
 namespace tct_Magazina.Controllers
 {
+    [Authorize]
     public class ManagerController : Controller
     {
 
-        public readonly AppDbContext _appDbContext;
+       // public readonly AppDbContext _appDbContext;
 
         public readonly IManagerRepository _managerRepository;
 
         public ManagerController(IManagerRepository managerRepository, AppDbContext appDbContext)
         {
             _managerRepository = managerRepository;
-            _appDbContext = appDbContext;
+          //  _appDbContext = appDbContext;
         }
         
 
@@ -121,6 +123,29 @@ namespace tct_Magazina.Controllers
             return View();
 
         }
+
+
+
+
+        public ViewResult Search(string searchString)
+        {
+            string _searchString = searchString;
+            IEnumerable<Manager> managers;
+
+            if (string.IsNullOrEmpty(_searchString))
+            {
+                managers = _managerRepository.Managers.OrderBy(p => p.ManagerId);
+            }
+            else
+            {
+                managers = _managerRepository.Managers.Where(p => p.Name.ToLower().Contains(_searchString.ToLower()));
+            }
+
+            return View("~/Views/Manager/List.cshtml", new ManagerListViewModel { Managers = managers});
+        }
+
+       
+      
 
     }
 }

@@ -37,7 +37,13 @@ namespace tct_Magazina.Repositories
                 NoOfWorkers = warehouseViewModel.NoOfWorkers,
 
 
-              DateTimeCreated=DateTime.Now
+              DateTimeCreated=DateTime.Now,
+                DateTimeModified = DateTime.Now,
+
+
+                SectorId = warehouseViewModel.SectorId
+
+
             };
 
 
@@ -61,5 +67,28 @@ namespace tct_Magazina.Repositories
         {
             return _appDbContext.Warehouses.Where(n => n.WarehouseId == warehouseId).FirstOrDefault();
         }
+
+
+
+
+
+        public void UpdateWarehouse(Warehouse newwarehouse)
+        {
+            Warehouse oldWarehouse = GetWarehouseById(newwarehouse.WarehouseId);
+            oldWarehouse.Name = newwarehouse.Name;
+            oldWarehouse.Location = newwarehouse.Location;
+            oldWarehouse.NoOfWorkers = newwarehouse.NoOfWorkers;
+
+            oldWarehouse.Area = newwarehouse.Area;
+
+
+            oldWarehouse.DateTimeModified = DateTime.Now;
+            _appDbContext.SaveChanges();
+
+        }
+
+
+        public IEnumerable<Warehouse> Warehouses => _appDbContext.Warehouses;
+
     }
 }

@@ -1,11 +1,16 @@
 ﻿@using tct_Magazina.Models;
 @model List<Sector>
 @{
-    ViewData["Title"] = "All Managers";
+    ViewData["Title"] = "All Sectors";
 }
 
 <h2>All Sectors</h2>
 
+<form class="navbar-form navbar-right" asp-controller="Sector" asp-action="Search" method="get">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search by Sector" name="searchString" value="@ViewData["searchString"]">
+    </div>
+</form>
 
 <button type="button" class="btn btn-default">@Html.ActionLink("Create", "CreateSector", "Sector")</button>
 
@@ -16,24 +21,25 @@
             <tr class="info">
                 <td> Name</td>
                 <td> Description</td>
-               
+                <td>Last Modified:</td>
             </tr>
 
-            
+
         </thead>
 
 
         <tbody>
             @foreach (Sector sector in Model)
             {
-            <tr>
+                <tr>
 
-                <td>@sector.Name</td>
-                <td>@sector.Description</td>
-                <td type="button" class="btn btn-default success"> @Html.ActionLink("Edit", "EditSector", "Sector", new { @id = sector.SectorId })</td>
+                    <td>@sector.Name</td>
+                    <td>@sector.Description</td>
+                    <td>@sector.DateTimeModified</td>
+                    <td type="button" class="btn btn-default success"> @Html.ActionLink("Edit", "EditSector", "Sector", new { @id = sector.SectorId })</td>
 
-                <td type="button" class="btn btn-default danger"> @Html.ActionLink("Delete", "Delete", "Sector", new { @id = sector.SectorId })</td>
-            </tr>
+                    <td type="button" class="btn btn-default danger"> @Html.ActionLink("Delete", "Delete", "Sector", new { @id = sector.SectorId })</td>
+                </tr>
 
             }
 

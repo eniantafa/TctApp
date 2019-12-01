@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using tct_Magazina.Enums;
 using tct_Magazina.Models;
 
 namespace tct_Magazina.ViewModels
@@ -10,14 +11,13 @@ namespace tct_Magazina.ViewModels
     public class WarehouseViewModel
     {
 
-        [Key]
-        public int WarehouseId { get; set; }
+       
         [Required]
         public string Name { get; set; }
 
         public int Area { get; set; }
 
-        public string Location { get; set; }
+        public WarehouseLocation Location { get; set; }
 
 
         [Display(Name = "Number of Workers")]
@@ -27,7 +27,7 @@ namespace tct_Magazina.ViewModels
 
 
         //site dropdown
-        public int SectorSectorId { get; set; }
+        public int SectorId { get; set; }
         public List<Sector> Sectors { get; set; }
     }
 }

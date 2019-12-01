@@ -16,5 +16,7 @@ namespace tct_Magazina.Interfaces
         Manager GetManagerById(int managerId);
         void Delete(int managerId);
         void UpdateManager(Manager newmanager);
+        IEnumerable<Manager> Managers { get; }
+
     }
 }

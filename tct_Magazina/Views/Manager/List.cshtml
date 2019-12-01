@@ -1,0 +1,23 @@
+﻿@model tct_Magazina.ViewModels.ManagerListViewModel 
+
+
+<h2>Search Result:</h2>
+<table class="table table-responsive">
+
+    <tr class="info">
+        <td>Name</td>
+        <td>Phone Number</td>
+        <td>E-Mail</td>
+        <td>Date of Birth</td>
+        <td>Last Modified:</td>
+
+    </tr>
+
+    </table>
+    <div class="row marginTop">
+        @foreach (var manager in Model.Managers)
+        {
+            @Html.Partial("ManagerSummary", manager)
+        }
+    </div>
+

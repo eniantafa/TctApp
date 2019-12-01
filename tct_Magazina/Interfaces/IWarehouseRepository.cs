@@ -15,5 +15,7 @@ namespace tct_Magazina.Interfaces
         bool Exists(int warehouseId);
         Warehouse GetWarehouseById(int warehouseId);
         void Delete(int warehouseId);
+        void UpdateWarehouse(Warehouse newwarehouse);
+        IEnumerable<Warehouse> Warehouses { get; }
     }
 }

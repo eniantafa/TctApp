@@ -7,6 +7,12 @@
 <h2>All Managers</h2>
 
 
+<form class="navbar-form navbar-right" asp-controller="Manager" asp-action="Search" method="get">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search by Manager" name="searchString" value="@ViewData["searchString"]">
+    </div>
+</form>
+
 <button type="button" class="btn btn-default">@Html.ActionLink("Create","CreateManager","Manager")</button>
 
 @if (Model.Any())
@@ -18,6 +24,8 @@
                 <td> Phone Number</td>
                 <td> E-Mail</td>
                 <td> Date of Birth</td>
+                <td> Last Modified: </td>
+
             </tr>
 
 
@@ -37,6 +45,10 @@
 
                 <td>
                     @manager.DateOfBirth.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @manager.DateTimeModified
+
                 </td>
                 <td type="button" class="btn btn-default success ">@Html.ActionLink("Edit", "EditManager", "Manager", new { @id = manager.ManagerId })</td>
 

@@ -1,0 +1,24 @@
+﻿@model tct_Magazina.ViewModels.WarehouseListViewModel
+<h2> Search Result:</h2>
+
+<table class="table table-responsive">
+
+    <tr class="info">
+        <td>Name</td>
+        <td>Area</td>
+        <td>Location</td>
+        <td>NoOfWorkers</td>
+
+
+        <td>.             Last Modified On:</td>
+    </tr>
+
+
+</table>
+<div class="row marginTop">
+    @foreach (var warehouse in Model.Warehouses)
+    {
+        @Html.Partial("WarehouseSummary", warehouse)
+    }
+</div>
+

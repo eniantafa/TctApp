@@ -40,7 +40,10 @@ namespace tct_Magazina.Repositories
                 PhoneNumber = managerViewModel.PhoneNumber,
 
 
-                DateTimeCreated = DateTime.Now,
+            DateTimeCreated = DateTime.Now,
+                DateTimeModified = DateTime.Now,
+
+
                 DefaultValue = "Henri"
 
 
@@ -84,9 +87,13 @@ namespace tct_Magazina.Repositories
             oldManager.PhoneNumber = newmanager.PhoneNumber;
             oldManager.email = newmanager.email;
             oldManager.DateOfBirth = newmanager.DateOfBirth;
-
+            oldManager.DateTimeModified = DateTime.Now;
             _appDbContext.SaveChanges();
 
         }
+
+
+        public IEnumerable<Manager> Managers => _appDbContext.Managers;
+
     }
 }

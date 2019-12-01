@@ -36,8 +36,10 @@ namespace tct_Magazina.Repositories
                 Description = sectorViewModel.Description,
 
 
-                DateTimeCreated = DateTime.Now
+                DateTimeCreated = DateTime.Now,
+                DateTimeModified = DateTime.Now,
 
+                ManagerId = sectorViewModel.ManagerId
             };
 
 
@@ -63,6 +65,23 @@ namespace tct_Magazina.Repositories
             return _appDbContext.Sectors.Where(n => n.SectorId == sectorId).FirstOrDefault();
         }
 
-        
+
+
+        public void UpdateSector(Sector newsector)
+        {
+            Sector oldSector = GetSectorById(newsector.SectorId);
+            oldSector.Name = newsector.Name;
+            oldSector.Description = newsector.Description;
+            
+            oldSector.DateTimeModified = DateTime.Now;
+            _appDbContext.SaveChanges();
+
+        }
+
+
+
+        public IEnumerable<Sector> Sectors => _appDbContext.Sectors;
+
+
     }
 }

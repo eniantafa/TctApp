@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using tct_Magazina.Interfaces;
 using tct_Magazina.Models;
@@ -9,6 +10,7 @@ using tct_Magazina.ViewModels;
 
 namespace tct_Magazina.Controllers
 {
+    [Authorize]
     public class WarehouseController : Controller
     {
 
@@ -16,10 +18,13 @@ namespace tct_Magazina.Controllers
         //inject warehouse repository
         public readonly AppDbContext _appDbContext;
         public readonly IWarehouseRepository _warehouseRepository;
-        public WarehouseController(IWarehouseRepository warehouseRepository, AppDbContext appDbContext)
+        public readonly ISectorRepository _sectorRepository;
+
+        public WarehouseController(IWarehouseRepository warehouseRepository, AppDbContext appDbContext, ISectorRepository sectorRepository)
         {
             _warehouseRepository = warehouseRepository;
-            _appDbContext=appDbContext;
+            _sectorRepository = sectorRepository;
+            _appDbContext =appDbContext;
     }
 
 
@@ -28,7 +33,22 @@ namespace tct_Magazina.Controllers
             return View();
         }
 
+
+
+        public ActionResult CreateWarehouse()
+        {
+            WarehouseViewModel warehouseViewModel = new WarehouseViewModel()
+            {
+                Sectors = _sectorRepository.allSectors()
+            };
+
+            return View(warehouseViewModel);
+        }
+
+
+
         //krijimi i warehouse
+        [HttpPost]
         public ActionResult CreateWarehouse(WarehouseViewModel warehouseViewModel)
         {
             //kusht nqs modeli eshte valid
@@ -43,7 +63,7 @@ namespace tct_Magazina.Controllers
 
             //ruajtja e te dhenave ne databaze
             _warehouseRepository.CreateWarehouse(warehouseViewModel);
-            return View();
+            return View(new WarehouseViewModel() { Sectors = _sectorRepository.allSectors() });
         }
 
 
@@ -84,6 +104,54 @@ namespace tct_Magazina.Controllers
 
             return RedirectToAction("GetAllWarehouses");
 
+        }
+
+
+
+
+
+
+
+
+        //PROCESI I UPDATE 
+        public ActionResult EditWarehouse(int id)
+        {
+
+            Warehouse mywarehouse =_warehouseRepository.GetWarehouseById(id);
+
+            return View(mywarehouse);
+        }
+
+
+
+        public ActionResult EditConfirm(Warehouse newswarehouse)
+        {
+           _warehouseRepository.UpdateWarehouse(newswarehouse);
+
+            _appDbContext.SaveChanges();
+
+            return View();
+
+
+
+        }
+
+
+        public ViewResult Search(string searchString)
+        {
+            string _searchString = searchString;
+            IEnumerable<Warehouse> warehouses;
+
+            if (string.IsNullOrEmpty(_searchString))
+            {
+                warehouses = _warehouseRepository.Warehouses.OrderBy(p => p.WarehouseId);
+            }
+            else
+            {
+                warehouses = _warehouseRepository.Warehouses.Where(p => p.Name.ToLower().Contains(_searchString.ToLower())).OrderBy(p=>p.Name);
+            }
+
+            return View("~/Views/Warehouse/List.cshtml", new WarehouseListViewModel { Warehouses = warehouses });
         }
 
     }

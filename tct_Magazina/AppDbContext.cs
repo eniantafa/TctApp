@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using tct_Magazina.Models;
 
 namespace tct_Magazina
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext: IdentityDbContext<IdentityUser>
     {
 
         private readonly IConfiguration _config;
@@ -25,12 +27,14 @@ namespace tct_Magazina
 
         public DbSet<Warehouse> Warehouses { get; set; }
 
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_config.GetConnectionString("tct_Magazina"));
+            optionsBuilder.UseSqlServer(_config.GetConnectionString("tctMagazina"));
 
         }
-
+       
 
     }
 }
