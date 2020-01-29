@@ -6,7 +6,7 @@ MVC App using ASP.NET Core, Entity Framework Core and Code First Pattern##
 
 Technologies used: • ASP.NET Core • Entity Framework Core • Entity Framework Migrations – Code First •Razor Engine •Dependency Injection •LINQ •Repository Pattern
 
-1.Installing .NET Core To install .NET Core (prefered 2.1 version) please follow the steps on the official web site https://www.microsoft.com/net/core#windowsvs2015
+1.Installing .NET Core To install .NET Core (prefered 2.1 version) please follow the steps on the official web site https://dotnet.microsoft.com/download/dotnet-core
 
 2.Opening project -Open the solution in VS 2017/2019
 
